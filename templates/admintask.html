@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Task Master</title>
+{% endblock %}
+
+{% block content %}
+<section class="page-section cta">
+<div class="content">
+    <h1 style="text-align: center">Task Master</h1>
+    {% if tasks|length < 1 %}
+    <h1 style="text-align: center">There are no tasks. Create one below!</h1>
+    {% else %}
+    <table>
+        <tr>
+            <th>Task</th>
+            <th>Added</th>
+            <th>Complete</th>
+        </tr>
+        {% for task in tasks %}
+            <tr>
+                <td>{{ task.content }}</td>
+                <td>{{ task.date_created.date() }}</td>
+                <td>{{ task.complete_time }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+    {% endif %}
+
+    <div class="form">
+        <form action="/admintask" method="POST">
+            <input type="text" name="content" id="content"> <h5>content</h5>
+            <input type="text" name="complete_time" id="complete_time"><h5>complete time</h5>
+            <input type="submit" value="Add Task">
+        </form>
+   </div>
+</section>
+{% endblock %}
